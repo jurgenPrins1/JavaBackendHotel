@@ -59,9 +59,7 @@ public class RoomEndpoint {
 	}
 	
 	@GetMapping("reservedRooms")
-	public String reservedRooms() {
-	//public Iterable<Room> reservedRooms(){
-		//return rs.getReservedRooms();
-		return "This endpoint is under construction!";
+	public Iterable<Room> reservedRooms(){
+		return rs.getReservedRooms();
 	}
 }

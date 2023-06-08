@@ -35,18 +35,6 @@ public class RoomService {
 	}
 
 	public Iterable<Room> getReservedRooms() {
-		List<Reservation> allReservations = reservationRepository.reservations();
-		
-		// Code to filter for date on reservations goes here
-		// Return all id's of reservations that overlap with the entered date range
-		// Rooms connected to those id's are occupied on the entered date range
-		// For now all reservation id's are used, to get the rooms associated with them
-		
-		long[] matchingReservationIds = {16, 17, 18, 19};
-		
-		// TO-DO: use gathered reservations (List<Reservation> or long[] with id's)
-		//			to get all the associated rooms. Return List<Room>.
-		
 		return roomRepository.getReservedRooms();
 	}
 }
