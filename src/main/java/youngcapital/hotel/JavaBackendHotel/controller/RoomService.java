@@ -37,4 +37,8 @@ public class RoomService {
 	public Iterable<Room> getReservedRooms() {
 		return roomRepository.getReservedRooms();
 	}
+
+	public Iterable<Room> vacantRooms(String checkInDate, String checkOutDate) {
+		return roomRepository.getVacantRooms(checkOutDate, checkInDate);
+	}
 }

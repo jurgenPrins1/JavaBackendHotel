@@ -22,5 +22,14 @@ public interface RoomRepository extends CrudRepository<Room, Long> {
 			+ "ON reservation_rooms.reservation_id = reservation.id\r\n"
 			+ "WHERE reservation.id IS NOT NULL;", nativeQuery = true)
 	List<Room> getReservedRooms();
+
+	@Query(value = "SELECT DISTINCT room.id, room.room_no, room.reserved, room.price, room.type\r\n"
+			+ "FROM room\r\n"
+			+ "LEFT JOIN reservation_rooms\r\n"
+			+ "ON room.id = reservation_rooms.rooms_id\r\n"
+			+ "LEFT JOIN reservation\r\n"
+			+ "ON reservation_rooms.reservation_id = reservation.id\r\n"
+			+ "WHERE ? <= begin_date OR ? >= end_date OR reservation.id IS NULL;", nativeQuery = true)
+	Iterable<Room> getVacantRooms(String checkOutDate, String checkInDate);
 	
 }
