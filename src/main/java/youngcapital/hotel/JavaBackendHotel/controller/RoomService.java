@@ -2,6 +2,7 @@ package youngcapital.hotel.JavaBackendHotel.controller;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,8 +38,19 @@ public class RoomService {
 	public Iterable<Room> getReservedRooms() {
 		return roomRepository.getReservedRooms();
 	}
-
-	public Iterable<Room> vacantRooms(String checkInDate, String checkOutDate) {
-		return roomRepository.getVacantRooms(checkOutDate, checkInDate);
+	
+	public List<Room> vacantRooms(String checkInDate, String checkOutdate){
+		
+		List<Room> occupiedRooms = roomRepository.getReservedRooms(checkInDate, checkOutdate);
+		List<Room> allRooms = (List<Room>) roomRepository.findAll();
+		
+		List<Room> vacantRooms = new ArrayList<>(); //repository functions return ArrayLists
+		
+		for(Room anyRoom : allRooms) {
+			if (!occupiedRooms.contains(anyRoom))
+				vacantRooms.add(anyRoom);
+		}
+		
+		return vacantRooms;
 	}
 }
